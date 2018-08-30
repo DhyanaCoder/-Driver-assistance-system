@@ -1,7 +1,10 @@
 package com.example.thinkpad.adas11;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
@@ -10,8 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +21,12 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapView;
+import com.bumptech.glide.Glide;
+import com.example.thinkpad.adas11.http.pictureHttpUtil;
+import com.example.thinkpad.adas11.http.weatherHttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,10 +45,11 @@ private TextView loc;
     private MapView mapView;
     private BaiduMap baiduMap;
     private boolean isFirstLocate=true;*/
-    private String city;
+    private String city="广州";
     private String  temperature;
     private String weatherData;
     private TextView weather;
+    private ImageView bgr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,7 @@ private TextView loc;
 
         ActionBar actionBar =getSupportActionBar();
         weather=(TextView) findViewById(R.id.weather);
+        bgr=(ImageView) findViewById(R.id.background);
         if(actionBar!=null){
             actionBar.hide();
         }
@@ -94,7 +97,7 @@ private TextView loc;
         Log.d("test",""+city);
 
 
-
+        GetPicture();
 
     }
 
@@ -155,7 +158,7 @@ public class MyLocationListener implements BDLocationListener{
                 loc.setText(currentPosition);
               //  Toast.makeText(MainActivity.this,"sddwq"+location.getCountry()+location.getLatitude()+" "+location.getLocType()+" "+BDLocation.TypeNetWorkLocation+" "+BDLocation.TypeGpsLocation,Toast.LENGTH_SHORT).show();
 
-                if(city!=location.getCity().toString()){
+                if(city!=location.getCity().toString()){//如果城市不同则更新天气
                     city=location .getCity().toString();
                     GetWeather();
                 }
@@ -166,9 +169,35 @@ public class MyLocationListener implements BDLocationListener{
         });
     }
 }
+private void GetPicture(){//获取背景
+
+    pictureHttpUtil.sendOkhttpRequest(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+            Log.d("test","test！！！！！");
+       /* runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                bgr.setImageResource(R.drawable.bgr);
+            }
+        });*/
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+final String address =response.body().string();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.with(MainActivity.this).load(address).into(bgr);
+                }
+            });
+        }
+    });
+}
 private void GetWeather(){
     //Log.d("test","nice");
-    HttpUtil.sendOkhttpRequest(city, new Callback() {
+    weatherHttpUtil.sendOkhttpRequest(city, new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
 
@@ -202,4 +231,24 @@ private void GetWeather(){
         }
     });
 }
+    public static boolean isNetworkAvailable(Context context) { //检查网络是否通畅
+
+        ConnectivityManager manager = (ConnectivityManager) context
+                .getApplicationContext().getSystemService(
+                        Context.CONNECTIVITY_SERVICE);
+
+        if (manager == null) {
+            return false;
+        }
+
+        NetworkInfo networkinfo = manager.getActiveNetworkInfo();
+
+        if (networkinfo == null || !networkinfo.isAvailable()) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

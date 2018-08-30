@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ImageView
+        android:id="@+id/background"
+        android:src="@drawable/bgr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/L1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+
     android:orientation="vertical"
     tools:context="com.example.thinkpad.adas11.MainActivity">
 
@@ -23,13 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="40px"
                 android:layout_marginBottom="14px"
-                android:background="@color/black" />
+                android:background="#8000" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120px"
                 android:layout_marginBottom="14px"
                 android:orientation="vertical"
-                android:background="@drawable/xianshiping">
+                android:background="#8000">
                 <TextView
                     android:layout_marginTop="30px"
                     android:layout_width="wrap_content"
@@ -70,7 +80,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120px"
-                android:background="@drawable/xianshiping"
+                android:background="#8000"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:orientation="vertical"
@@ -84,7 +94,7 @@
                         android:id="@+id/weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  "
+                        android:text=" 广州 大雨 "
                         android:textSize="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
@@ -94,8 +104,8 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="15dp"
+                    android:text="26℃"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
                     />
                 <LinearLayout
@@ -180,7 +190,7 @@
 </LinearLayout>
     </LinearLayout>
 <LinearLayout
-android:background="@drawable/bottombackgroud"
+android:background="#8000"
     android:orientation="horizontal"
     android:layout_marginBottom="18px"
     android:layout_width="match_parent"
@@ -214,3 +224,4 @@ android:background="@drawable/bottombackgroud"
     </ImageButton>
 </LinearLayout>
 </LinearLayout>
+</FrameLayout>

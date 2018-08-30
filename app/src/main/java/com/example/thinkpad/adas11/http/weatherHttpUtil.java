@@ -1,4 +1,4 @@
-package com.example.thinkpad.adas11;
+package com.example.thinkpad.adas11.http;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
  * Created by thinkpad on 2018/7/15.
  */
 
-public class HttpUtil {
+public class weatherHttpUtil {
     private final static  String apikey="LzQUsyWYuvT5kNqAAuUuY1pBmhhS37V7";
     private final static  String address="http://www.sojson.com/open/api/weather/json.shtml?city=";
         public static void sendOkhttpRequest(String city,okhttp3.Callback callback){
