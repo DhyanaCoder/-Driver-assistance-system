@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_height="match_parent"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
     <ImageView
         android:id="@+id/background"
         android:src="@drawable/bgr"
@@ -78,6 +84,7 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="120px"
                 android:background="#8000"
@@ -85,16 +92,20 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <ImageButton
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
+                    <ImageView
+                        android:id="@+id/weatherbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bigrain"/>
+                        android:background="@drawable/cloud"
+                       />
                     <TextView
                         android:id="@+id/weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 广州 大雨 "
+                        android:text="多云 26℃ "
                         android:textSize="20dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
@@ -104,12 +115,14 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="26℃"
-                    android:textSize="20dp"
+                    android:text="广州"
+                    android:textSize="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
                     android:textColor="@color/white"
                     />
                 <LinearLayout
-                    android:layout_marginLeft="170dp"
+                    android:layout_marginLeft="50dp"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -171,6 +184,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
+        android:id="@+id/musictop"
         android:layout_width="match_parent"
         android:layout_height="144px"
         android:layout_marginBottom="8px"
@@ -225,3 +239,9 @@ android:background="#8000"
 </LinearLayout>
 </LinearLayout>
 </FrameLayout>
+
+        <include layout="@layout/music_player"
+           />
+
+
+</android.support.v4.widget.DrawerLayout>
